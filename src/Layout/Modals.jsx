@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AunthContext } from '../Auth/AuthProvider';
 
 
 const Modals = () => {
+    const name = useContext(AunthContext);
+    console.log(name);
      const [aiS, setAi] = useState([]);
       useEffect(() => {
         fetch("http://localhost:3000/allmodals")

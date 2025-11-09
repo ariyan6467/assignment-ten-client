@@ -5,8 +5,8 @@ export default function Navbar() {
   const [open, setOpen] = React.useState(false)
 
   const links = [
-    { href: "/createmodals", label: "add model" },
-    { href: "/modals", label: "view model" },
+    { href: "/add-model", label: "add model" },
+    { href: "/models", label: "view model" },
     { href: "/purchase", label: "my purchase" },
   ]
 

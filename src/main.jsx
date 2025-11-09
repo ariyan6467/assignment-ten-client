@@ -1,76 +1,85 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
-import Home from './Layout/Home.jsx';
-import Navbar from './Component/Navbar.jsx';
-import Banner from './Component/Banner.jsx';
-import HomeAi from './Component/HomeAi.jsx';
-import AboutAi from './Component/AboutAi.jsx';
-import Register from './Component/Register.jsx';
-import Footer from './Component/Footer.jsx';
-import Login from './Layout/Login.jsx';
-import Modals from './Layout/Modals.jsx';
-import CreateModal from './Layout/CreateModal.jsx';
-import MyPurchase from './Layout/MyPurchase.jsx';
-import Roots from './Component/Roots.jsx';
+import Home from "./Layout/Home.jsx";
+import Navbar from "./Component/Navbar.jsx";
+import Banner from "./Component/Banner.jsx";
+import HomeAi from "./Component/HomeAi.jsx";
+import AboutAi from "./Component/AboutAi.jsx";
+import Register from "./Component/Register.jsx";
+import Footer from "./Component/Footer.jsx";
+import Login from "./Layout/Login.jsx";
+import Modals from "./Layout/Modals.jsx";
+import CreateModal from "./Layout/CreateModal.jsx";
+import MyPurchase from "./Layout/MyPurchase.jsx";
+import Roots from "./Component/Roots.jsx";
+import AegAuth from "./Layout/AegAuth.jsx";
+import AuthProvider from "./Auth/AuthProvider.jsx";
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component:Roots,
-    children:[
+    Component: Roots,
+    children: [
       {
-        index:true,
-        Component:Home
-      },
-      {
-        path:"/",
-        Component:Navbar
-      },
-       {
-        path:"/",
-        Component:Banner
-      },
-       {
-        path:"/",
-        Component:HomeAi
-      },
-       {
-        path:"/",
-        Component:AboutAi
-      },
-       {
-        path:"/",
-        Component:Register
-      },
-       {
-        path:"/",
-        Component:Footer
+        index: true,
+        Component: Home,
       },
       {
-        path:"/modals",
-        Component:Modals
+        path: "/",
+        Component: Navbar,
       },
       {
-        path:"/createmodals",
-        Component:CreateModal,
+        path: "/",
+        Component: Banner,
       },
       {
-        path:"/purchase",
-        Component:MyPurchase
+        path: "/",
+        Component: HomeAi,
+      },
+      {
+        path: "/",
+        Component: AboutAi,
+      },
+      {
+        path: "/",
+        Component: Register,
+      },
+      {
+        path: "/",
+        Component: Footer,
+      },
+      {
+        path: "/models",
+        Component: Modals,
+      },
+      {
+        path: "/add-model",
+        Component: CreateModal,
+      },
+      {
+        path: "/purchase",
+        Component: MyPurchase,
       }
-    ]
+    ],
   },
   {
-    path:"/login",
-    Component:Login,
+    path: "/login",
+    Component: Login,
+  },
+  {
+    path:"/register",
+    Component:AegAuth
   }
 ]);
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />,
-  </StrictMode>,
-)
+   <AuthProvider>
+     <RouterProvider router={router} />,
+   </AuthProvider>
+  </StrictMode>
+);

@@ -55,7 +55,8 @@ Centralize, version, and monitor your AI models with a clean, intuitive dashboar
 transition={{ ...fadeUp.transition, delay: 0.1 }}
 className="mx-auto mt-8 flex flex-wrap items-center justify-center gap-3"
 >
-<button
+<NavLink to="/register">
+    <button
 type="button"
 className="inline-flex items-center gap-2 rounded-2xl bg-indigo-500 px-5 py-3 text-base font-semibold text-white shadow-lg shadow-indigo-900/30 ring-1 ring-inset ring-white/10 transition-transform hover:scale-[1.02] hover:bg-indigo-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
 aria-label="Create an account"
@@ -63,6 +64,7 @@ aria-label="Create an account"
 <UserPlus className="h-5 w-5" />
 Create an account
 </button>
+</NavLink>
 
 
 <NavLink to="/login">
