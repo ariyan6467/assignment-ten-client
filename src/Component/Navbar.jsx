@@ -1,9 +1,22 @@
-import React from "react"
+import React, { useContext } from "react"
 import { NavLink } from "react-router"
+import { AunthContext } from "../Auth/AuthProvider"
+import { signOut } from "firebase/auth";
 
 export default function Navbar() {
+  const {user,handleSignOut} = useContext(AunthContext);
+  console.log(user);
   const [open, setOpen] = React.useState(false)
-
+ 
+  function signOut(){
+    handleSignOut()
+    .then((res) =>{
+      alert("successfull")
+    })
+    .catch((error)=>{
+      alert("fail");
+    })
+  }
   const links = [
     { href: "/add-model", label: "add model" },
     { href: "/models", label: "view model" },
@@ -66,7 +79,7 @@ export default function Navbar() {
           </button>
 
           {/* Avatar dropdown */}
-          <div className="dropdown dropdown-end">
+          {/* <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar" aria-label="Open profile menu">
               <div className="w-10 rounded-full ring ring-base-300">
                 <img
@@ -86,13 +99,46 @@ export default function Navbar() {
               <li><a href="#settings">Settings</a></li>
               <li><a href="#logout">Logout</a></li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Login button */}
-         <NavLink to="/login" className="btn btn-primary rounded-full normal-case shadow-md shadow-primary/20 hover:shadow-lg">
+         {/* <NavLink to="/login" className="btn btn-primary rounded-full normal-case shadow-md shadow-primary/20 hover:shadow-lg">
+            LOgin
+         </NavLink> */}
+
+
+{
+  user?   <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar" aria-label="Open profile menu">
+              <div className="w-10 rounded-full ring ring-base-300">
+                <img
+                  alt="User avatar"
+                  src="https://tse4.mm.bing.net/th/id/OIP.jOAHFRvlcbk9ibuLp5nRoAHaE7?cb=ucfimgc2&rs=1&pid=ImgDetMain&o=7&rm=3"
+                />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-56 border border-base-200"
+            >
+              <li className="menu-title">Signed in {user.displayName}</li>
+              <li className="px-3 pb-1 text-sm opacity-70">{user.email}</li>
+              <li><div className="divider my-1"/></li>
+              <li>
+                <NavLink to="/purchase" className="justify-between">
+                  Purchase Page<span className="badge">Click</span>
+                </NavLink>
+              </li>
+             
+              <li><button
+              onClick={signOut}
+              
+              >Logout</button></li>
+            </ul>
+          </div>: <NavLink to="/login" className="btn btn-primary rounded-full normal-case shadow-md shadow-primary/20 hover:shadow-lg">
             LOgin
          </NavLink>
-
+}
           {/* Mobile: Menu button */}
           <div className="lg:hidden">
             <button

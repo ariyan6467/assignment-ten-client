@@ -1,6 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AunthContext } from '../Auth/AuthProvider';
 
 const Login = () => {
+  const {setuser,handleGoogleSignIn,handleSignIn} = useContext(AunthContext);
+  function handleSubmit(e){
+    e.preventDefault();
+     const form = e.target;
+       const email = form.email.value;
+        const password = form.password.value;
+
+        handleSignIn(email,password)
+        .then(res => {
+          alert("success");
+          setuser(res.user);
+        })
+        .catch((error)=>{
+          console.error(error.message);
+          alert("fucked");
+        })
+  }
+
+   function googleSignIN(){
+         handleGoogleSignIn()
+         .then(res =>{
+            console.log(res.user);
+            alert("success");
+            setuser(res.user);
+         })
+         .catch((error)=>{
+            console.error(error.message);
+            alert("fucked");
+         })
+    }
     return (
          <div className="min-h-screen bg-base-200 flex items-center justify-center p-6">
       {/* Card container (replicates gradient, radius, border, shadow) */}
@@ -18,7 +49,9 @@ const Login = () => {
         </div>
 
         {/* Form */}
-        <form className="mt-5">
+        <form 
+        onSubmit={handleSubmit}
+        className="mt-5">
           {/* Email */}
           <input
             required
@@ -62,7 +95,7 @@ const Login = () => {
 
           {/* Sign In button */}
           <button
-            type="button"
+            type="submit"
             className="
               btn w-full mt-5
               rounded-2xl font-bold text-white
@@ -87,6 +120,7 @@ const Login = () => {
           <div className="mt-2 w-full flex justify-center gap-4">
             {/* Google */}
             <button
+            onClick={googleSignIN}
               type="button"
               aria-label="Sign in with Google"
               className="
@@ -108,51 +142,9 @@ const Login = () => {
               </svg>
             </button>
 
-            {/* Apple */}
-            <button
-              type="button"
-              aria-label="Sign in with Apple"
-              className="
-                grid place-content-center
-                w-10 aspect-square rounded-full
-                border-[5px] border-white
-                shadow-[0_12px_10px_-8px_rgba(133,189,215,0.88)]
-                transition-transform duration-200 ease-in-out
-                hover:scale-110 active:scale-90
-                bg-[linear-gradient(45deg,#000_0%,#707070_100%)]
-              "
-            >
-              <svg
-                className="w-4 h-4 text-white fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 384 512"
-              >
-                <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
-              </svg>
-            </button>
+          
 
-            {/* Twitter / X */}
-            <button
-              type="button"
-              aria-label="Sign in with X"
-              className="
-                grid place-content-center
-                w-10 aspect-square rounded-full
-                border-[5px] border-white
-                shadow-[0_12px_10px_-8px_rgba(133,189,215,0.88)]
-                transition-transform duration-200 ease-in-out
-                hover:scale-110 active:scale-90
-                bg-[linear-gradient(45deg,#000_0%,#707070_100%)]
-              "
-            >
-              <svg
-                className="w-4 h-4 text-white fill-current"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 512 512"
-              >
-                <path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" />
-              </svg>
-            </button>
+           
           </div>
         </div>
 

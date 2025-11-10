@@ -1,7 +1,58 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router';
+import { AunthContext } from '../Auth/AuthProvider';
 
 const AegAuth = () => {
+    const {handleCreateUser,user,setuser,handleGoogleSignIn,handleupdateData} = useContext(AunthContext);
+    console.log(handleCreateUser);
+
+    function handleSubmit(e){
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const img = form.image.value;
+        const password = form.password.value;
+        console.log(name,email,img,password);
+      
+        handleCreateUser(email,password)
+        .then(res => {
+            console.log(res.user);
+            alert("succes");
+            const RegisteredUser = res.user;
+              const profileData ={
+           photoURL:img,
+           displayName :name,
+            
+            };
+
+            handleupdateData(RegisteredUser,profileData)
+            .then(() =>{
+              setuser({...RegisteredUser,...profileData})
+            })
+              .catch((error) =>{
+                alert("not update")
+              })
+        })
+        .catch((error) =>{
+              console.error(error.message);
+              alert("fuck")
+        })
+    }
+
+    function googleSignIN(){
+         handleGoogleSignIn()
+         .then(res =>{
+            console.log(res.user);
+            alert("success");
+            setuser(res.user);
+         })
+         .catch((error)=>{
+            console.error(error.message);
+            alert("fucked");
+         })
+    }
+
     return (
         <div className="min-h-screen bg-base-200 flex items-center justify-center p-6">
       {/* Card container (replicates gradient, radius, border, shadow) */}
@@ -19,7 +70,9 @@ const AegAuth = () => {
         </div>
 
         {/* Form */}
-        <form className="mt-5">
+        <form 
+        onSubmit={handleSubmit}
+        className="mt-5">
           {/* Email */}
           <input
             required
@@ -100,7 +153,8 @@ const AegAuth = () => {
 
           {/* Sign In button */}
           <button
-            type="button"
+
+            type="submit"
             className="
               btn w-full mt-5
               rounded-2xl font-bold text-white
@@ -125,6 +179,7 @@ const AegAuth = () => {
           <div className="mt-2 w-full flex justify-center gap-4">
             {/* Google */}
             <button
+            onClick={googleSignIN}
               type="button"
               aria-label="Sign in with Google"
               className="
@@ -151,11 +206,13 @@ const AegAuth = () => {
         </div>
 
         {/* Agreement link */}
-        <span className="block text-center mt-4">
+      <NavLink to="/login">
+          <span className="block text-center mt-4">
           <a className="text-sky-500 text-[9px] hover:underline" href="#">
-           Already have an acount?<NavLink to="/login"    className="underline">Login</NavLink>
+           Already have an acount?Login
           </a>
         </span>
+      </NavLink>
       </div>
     </div>
     );

@@ -18,6 +18,7 @@ import MyPurchase from "./Layout/MyPurchase.jsx";
 import Roots from "./Component/Roots.jsx";
 import AegAuth from "./Layout/AegAuth.jsx";
 import AuthProvider from "./Auth/AuthProvider.jsx";
+import PrivateRoutes from "./Auth/PrivateRoutes.jsx";
 
 
 const router = createBrowserRouter([
@@ -55,15 +56,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/models",
-        Component: Modals,
+        element:<PrivateRoutes>
+          <Modals></Modals>
+        </PrivateRoutes> ,
       },
       {
         path: "/add-model",
-        Component: CreateModal,
+        element:<PrivateRoutes>
+          <CreateModal></CreateModal>
+        </PrivateRoutes>,
       },
       {
         path: "/purchase",
-        Component: MyPurchase,
+        element:<PrivateRoutes>
+          <MyPurchase></MyPurchase>
+        </PrivateRoutes>,
       }
     ],
   },
