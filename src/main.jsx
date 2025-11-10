@@ -19,6 +19,8 @@ import Roots from "./Component/Roots.jsx";
 import AegAuth from "./Layout/AegAuth.jsx";
 import AuthProvider from "./Auth/AuthProvider.jsx";
 import PrivateRoutes from "./Auth/PrivateRoutes.jsx";
+import Details from "./Layout/Details.jsx";
+
 
 
 const router = createBrowserRouter([
@@ -70,6 +72,12 @@ const router = createBrowserRouter([
         path: "/purchase",
         element:<PrivateRoutes>
           <MyPurchase></MyPurchase>
+        </PrivateRoutes>,
+      },
+      {
+        path:"/details",
+        element:<PrivateRoutes>
+         <Details></Details>
         </PrivateRoutes>,
       }
     ],

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -31,7 +32,6 @@ const slides = [
 const Banner = () => {
   const [current, setCurrent] = useState(0);
 
-  // Auto-slide every 5 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
@@ -43,13 +43,13 @@ const Banner = () => {
   const prevSlide = () => setCurrent((current - 1 + slides.length) % slides.length);
 
   return (
-    <div className="relative my-10 mx-32 rounded-2xl overflow-hidden shadow-2xl h-[600px]">
+    <div className="relative my-10 mx-4 md:mx-10 lg:mx-24 rounded-2xl overflow-hidden shadow-2xl h-[520px] md:h-[600px]">
       <AnimatePresence>
         <motion.div
           key={slides[current].id}
-          initial={{ opacity: 0, scale: 1.1 }}
+          initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
+          exit={{ opacity: 0, scale: 0.96 }}
           transition={{ duration: 1.2, ease: "easeInOut" }}
           className="absolute inset-0"
         >
@@ -58,17 +58,17 @@ const Banner = () => {
             alt={slides[current].title}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-10">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-10">
             <motion.h1
-              className="text-white text-4xl font-bold mb-2 drop-shadow-lg"
+              className="text-white text-3xl md:text-4xl font-extrabold mb-2 drop-shadow-xl"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              {slides[current].title}
+              <span className="brand-gradient">{slides[current].title}</span>
             </motion.h1>
             <motion.p
-              className="text-gray-200 text-lg drop-shadow-md"
+              className="text-gray-200 text-base md:text-lg drop-shadow-md"
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -82,19 +82,19 @@ const Banner = () => {
       {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
-        className="absolute left-5 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white btn btn-circle transition-all duration-300"
+        className="absolute left-5 top-1/2 -translate-y-1/2 btn btn-circle btn-soft text-white"
       >
         ❮
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-5 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white btn btn-circle transition-all duration-300"
+        className="absolute right-5 top-1/2 -translate-y-1/2 btn btn-circle btn-soft text-white"
       >
         ❯
       </button>
 
-      {/* Dots Indicator */}
-      <div className="absolute bottom-5 left-1/2 transform -translate-x-1/2 flex gap-2">
+      {/* Dots */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex gap-2">
         {slides.map((_, i) => (
           <button
             key={i}

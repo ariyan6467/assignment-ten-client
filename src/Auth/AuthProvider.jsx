@@ -8,6 +8,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({children}) => {
    const[user,setuser] = useState(null);
      const[loading,SetLoading] =  useState(true);
+     const[details,setDetails] = useState(null);
    console.log(user);
 
 
@@ -47,12 +48,13 @@ const AuthProvider = ({children}) => {
     return () => unSubscribe();
   }, []);
     const authINfo ={
-       handleCreateUser,loading,
+       handleCreateUser,loading,SetLoading,
        user,setuser,
        handleGoogleSignIn,
        handleSignIn,
        handleSignOut,
-       handleupdateData
+       handleupdateData,
+     details,setDetails
     }
     return (
        <AunthContext.Provider value={authINfo}>
