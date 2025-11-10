@@ -17,6 +17,7 @@ export default function Navbar() {
     { href: "/add-model", label: "add model" },
     { href: "/models", label: "view model" },
     { href: "/purchase", label: "my purchase" },
+     { href: "/mymodals", label: "My Modals" },
   ];
 
   const LinkItems = (

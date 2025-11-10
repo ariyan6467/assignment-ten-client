@@ -20,6 +20,7 @@ import AegAuth from "./Layout/AegAuth.jsx";
 import AuthProvider from "./Auth/AuthProvider.jsx";
 import PrivateRoutes from "./Auth/PrivateRoutes.jsx";
 import Details from "./Layout/Details.jsx";
+import MyModals from "./Layout/MyModals.jsx";
 
 
 
@@ -79,6 +80,12 @@ const router = createBrowserRouter([
         element:<PrivateRoutes>
          <Details></Details>
         </PrivateRoutes>,
+      },
+      {
+        path:"/mymodals",
+        element:<PrivateRoutes>
+          <MyModals></MyModals>
+        </PrivateRoutes>
       }
     ],
   },
