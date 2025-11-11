@@ -22,6 +22,7 @@ import PrivateRoutes from "./Auth/PrivateRoutes.jsx";
 import Details from "./Layout/Details.jsx";
 import MyModals from "./Layout/MyModals.jsx";
 import UpdateModel from "./Component/UpdateModel.jsx";
+import Error from "./Layout/Error.jsx";
 
 
 
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
         index: true,
         Component: Home,
       },
+      {
+        path:"*",
+        Component:Error
+      }
+      ,
       {
         path: "/",
         Component: Navbar,
