@@ -157,18 +157,21 @@
 import React, { useContext, useState } from 'react';
 import { AunthContext } from '../Auth/AuthProvider';
 import { Navigate, NavLink, useLoaderData, useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2'; // Import SweetAlert2
+import Swal from 'sweetalert2';
 
-// --- START: UpdateModal Component (New) ---
+
 
 // --- END: UpdateModal Component (New) ---
 
 const Details = () => {
     // --- START: Modal State (New) ---
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => setIsModalOpen(true);
+    const openModal = () => {
+      setIsModalOpen(true)
+    };
     const closeModal = () => setIsModalOpen(false);
     // --- END: Modal State (New) ---
+      
 
     const { user } = useContext(AunthContext);
     console.log(user);
@@ -279,17 +282,15 @@ const Details = () => {
 
 
                         {/* --- START: Update Button Change (New onClick) --- */}
-                        <button
-                            onClick={openModal} // Toggles the state to open the modal
-                            className="bg-pink-400 hover:bg-pink-500 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-transform duration-300 hover:scale-105">
-                            Update Modal
-                        </button>
+                        
                         {/* --- END: Update Button Change --- */}
 
 
                         {userDetails && (
                             <div className="flex gap-5">
-                                <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-transform duration-300 hover:scale-105">
+                                <button 
+                                 onClick={openModal}
+                                className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-transform duration-300 hover:scale-105">
                                     ✏️ Edit
                                 </button>
                                 <button
@@ -309,7 +310,7 @@ const Details = () => {
                 isOpen={isModalOpen}
                 onClose={closeModal}
             />
-            {/* --- END: Modal Rendering --- */}
+         
         </section>
     );
 };
@@ -320,7 +321,7 @@ const Details = () => {
 
 const UpdateModal = ({ details, isOpen, onClose }) => {
     if (!isOpen) return null;
-
+ console.log(details);
     const [formData, setFormData] = useState({
         name: details.name,
         framework: details.framework,
@@ -338,13 +339,35 @@ const UpdateModal = ({ details, isOpen, onClose }) => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+       const form = e.target;
+       const name = form.name.value;
+       const framework = form.framework.value;
+       const useCase = form.useCase.value;
+       const dataset = form.dataset.value;
+       const image = form.image.value;
+       const description = form.description.value;
        
-        console.log("Updated Data:", formData);
+      const  updatedData={name,framework,useCase,dataset,image,description};
+   
         
+  const response = await fetch(`http://localhost:3000/update/${details._id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updatedData),
+  });
+  const data = await response.json();
+  console.log(data);
+
         
-        Swal.fire('Form Submission Captured!', 'Check console for data. Implement actual fetch logic.', 'info');
+
+        
+        Swal.fire({
+  title: "Model Updated!",
+  icon: "success",
+  draggable: true
+});
         onClose();
     };
 

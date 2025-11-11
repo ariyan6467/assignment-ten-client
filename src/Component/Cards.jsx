@@ -1,19 +1,19 @@
 
 import React, { useContext, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,  useNavigate } from 'react-router-dom';
 import { AunthContext } from '../Auth/AuthProvider';
+import { Navigate } from 'react-router';
 
 const Cards = ({ ai }) => {
     const { setDetails } = useContext(AunthContext);
-  
-
+ 
     async function getModelById(id) {
         try {
             const res = await fetch(`http://localhost:3000/models/${id}`);
             if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
             const data = await res.json();
             setDetails(data);
-            return data;
+            return <Navigate state={location.pathname}></Navigate>
         } catch (err) {
             console.error('Failed to fetch model:', err);
         }
