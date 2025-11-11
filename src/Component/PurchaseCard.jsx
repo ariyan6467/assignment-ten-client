@@ -30,7 +30,7 @@ const Card = ({ purchase }) => {
       
       {/* View Details Button */}
       <div className="mt-4">
-        <NavLink to="/details">
+        <NavLink    to={`/details/${purchase._id}`}>
             <button
           className="w-full py-2 bg-[#e81cff] text-white font-semibold rounded-lg hover:bg-[#d215db] transition duration-300"
           onClick={handleDetails}

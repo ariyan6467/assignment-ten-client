@@ -8,9 +8,12 @@ const MyPurchase = () => {
   const [purchases, setPurchase] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/allpurchase`)
+    fetch(`http://localhost:3000/userpurchase/${user.email}`)
       .then((res) => res.json())
-      .then((data) => setPurchase(data));
+      .then((data) => {
+        setPurchase(data);
+        console.log(data);
+      });
   }, []);
 
   console.log(purchases);

@@ -21,6 +21,7 @@ import AuthProvider from "./Auth/AuthProvider.jsx";
 import PrivateRoutes from "./Auth/PrivateRoutes.jsx";
 import Details from "./Layout/Details.jsx";
 import MyModals from "./Layout/MyModals.jsx";
+import UpdateModel from "./Component/UpdateModel.jsx";
 
 
 
@@ -90,6 +91,12 @@ const router = createBrowserRouter([
         path:"/mymodals",
         element:<PrivateRoutes>
           <MyModals></MyModals>
+        </PrivateRoutes>
+      },
+      {
+        path:"/updataModal",
+        element:<PrivateRoutes>
+          <UpdateModel></UpdateModel>
         </PrivateRoutes>
       }
     ],
