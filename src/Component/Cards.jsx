@@ -1,10 +1,11 @@
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AunthContext } from '../Auth/AuthProvider';
 
 const Cards = ({ ai }) => {
     const { setDetails } = useContext(AunthContext);
+  
 
     async function getModelById(id) {
         try {
@@ -53,7 +54,7 @@ const Cards = ({ ai }) => {
 
                     <NavLink
                         onClick={() => getModelById(ai._id)}
-                        to="/details"
+                        to={`/details/${ai._id}`}
                         className="block"
                     >
                         <button className="btn btn-brand w-full mt-3 rounded-xl">

@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PurchaseCard from '../Component/PurchaseCard';
+import { AunthContext } from '../Auth/AuthProvider';
 
 const MyPurchase = () => {
+  const {user} = useContext(AunthContext);
+  console.log(user.email);
   const [purchases, setPurchase] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/allpurchase")
+    fetch(`http://localhost:3000/allpurchase`)
       .then((res) => res.json())
       .then((data) => setPurchase(data));
   }, []);

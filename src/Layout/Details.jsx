@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { AunthContext } from '../Auth/AuthProvider';
-import { Navigate, NavLink, useNavigate } from 'react-router-dom';
+import { Navigate, NavLink, useLoaderData, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2'; // Import SweetAlert2
 
 const Details = () => {
-  const { details, setDetails, user } = useContext(AunthContext);
+  const { user } = useContext(AunthContext);
+  const details = useLoaderData();
+  console.log(details);
   // console.log(details._id, user);
  const navigation = useNavigate();
   if (details == null) {
@@ -58,10 +60,11 @@ const handlePurchase = async (id) => {
 
     if (data.message === 'Purchase successful') {
       Swal.fire('Purchased successfully!', '', 'success');
-      setDetails((details) => ({
-        ...details,
-        purchased: details.purchased + 1, // Update purchased count locally
-      }));
+      // setDetails((details) => ({
+      //   ...details,
+      //   purchased: details.purchased + 1, // Update purchased count locally
+      // }));
+    // details = {...details,purchased:details.purchased+1};
     } else {
       Swal.fire('Already Purchased', '', 'error');
     }
@@ -76,7 +79,7 @@ const handlePurchase = async (id) => {
 
 
   return (
-    <section className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-3xl shadow-2xl overflow-hidden my-10">
+    <section className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white rounded-3xl shadow-2xl overflow-hidden my-10 max-w-[1200px] mx-auto">
       <div className="flex flex-col md:flex-row items-center md:items-stretch">
         {/* Left: Image */}
         <div className="md:w-1/2 w-full p-6 flex items-center justify-center bg-white/10 backdrop-blur-sm">

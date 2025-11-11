@@ -27,7 +27,7 @@ const AegAuth = () => {
         handleCreateUser(email,password)
         .then(res => {
             console.log(res.user);
-            alert("succes");
+            
             const RegisteredUser = res.user;
               const profileData ={
            photoURL:img,

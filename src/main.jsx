@@ -76,7 +76,12 @@ const router = createBrowserRouter([
         </PrivateRoutes>,
       },
       {
-        path:"/details",
+        path:"/details/:id",
+        loader: async ({ params }) => {
+    const response = await fetch(`http://localhost:3000/models/${params.id}`);
+    if (!response.ok) throw new Error('Error fetching data');
+    return response.json();
+  },
         element:<PrivateRoutes>
          <Details></Details>
         </PrivateRoutes>,

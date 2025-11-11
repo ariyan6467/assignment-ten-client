@@ -6,7 +6,7 @@ import { AunthContext } from "../Auth/AuthProvider";
 export default function Navbar() {
   const { user, handleSignOut } = useContext(AunthContext);
   const [open, setOpen] = React.useState(false);
-
+ console.log(user);
   function signOut() {
     handleSignOut()
       .then(() => alert("successfull"))
