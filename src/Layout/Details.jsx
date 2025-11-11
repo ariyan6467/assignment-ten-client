@@ -109,11 +109,13 @@ const Details = () => {
             </button>
 
 
-             <button 
-              to="/updataModal"
+            <NavLink to="/updataModal">
+               <button 
+             
               className="bg-pink-400 hover:bg-red-300 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-transform duration-300 hover:scale-105">
              Update Modal
             </button>
+            </NavLink>
 
             {userDetails && (
               <div className="flex gap-5">
