@@ -1,8 +1,13 @@
 import React, { useContext } from 'react';
 import { AunthContext } from '../Auth/AuthProvider';
+import { NavLink, useLocation, useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const {setuser,handleGoogleSignIn,handleSignIn} = useContext(AunthContext);
+   const location = useLocation();
+    console.log(location);
+    const navigate = useNavigate();
   function handleSubmit(e){
     e.preventDefault();
      const form = e.target;
@@ -11,12 +16,24 @@ const Login = () => {
 
         handleSignIn(email,password)
         .then(res => {
-          alert("success");
+         Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Login Successfull",
+  showConfirmButton: false,
+  timer: 1500
+});
           setuser(res.user);
+          navigate(`${location.state}`)
         })
         .catch((error)=>{
           console.error(error.message);
-          alert("fucked");
+         Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "Login Fail.Recheck Your Info",
+  footer: '<a href="#">Why do I have this issue?</a>'
+});
         })
   }
 
@@ -24,12 +41,29 @@ const Login = () => {
          handleGoogleSignIn()
          .then(res =>{
             console.log(res.user);
-            alert("success");
+           Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Login Successfull",
+  showConfirmButton: false,
+  timer: 1500
+});
             setuser(res.user);
+            if(location.state){
+                  navigate(`${location.state}`)
+            }else{
+              navigate("/")
+            }
+             
          })
          .catch((error)=>{
             console.error(error.message);
-            alert("fucked");
+           Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "Login Fail.Recheck Your Info",
+  footer: '<a href="#">Why do I have this issue?</a>'
+});
          })
     }
     return (
@@ -150,9 +184,11 @@ const Login = () => {
 
         {/* Agreement link */}
         <span className="block text-center mt-4">
-          <a className="text-sky-500 text-[9px] hover:underline" href="#">
-            Learn user licence agreement
-          </a>
+         <NavLink 
+         to="/register"
+         className="text-sky-500 text-[9px] hover:underline">
+            New?Sign up
+         </NavLink>
         </span>
       </div>
     </div>

@@ -2,14 +2,27 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AunthContext } from '../Auth/AuthProvider';
 import Cards from '../Component/Cards';
+import { useLocation } from 'react-router';
 
 const Modals = () => {
     const name = useContext(AunthContext);
     console.log(name);
+   const location = useLocation();
+    console.log(location);
+   
     
     const [aiS, setAi] = useState([]);  
     const [filteredAi, setFilteredAi] = useState([]);  
     const [searchQuery, setSearchQuery] = useState(''); 
+      const [isOpen, setIsOpen] = useState(false);
+        const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+  };
+
+let uniqueNamesArray = [,...new Set(filteredAi.map(item => item.framework))];
+ uniqueNamesArray = ["All",...uniqueNamesArray];
+
+console.log(uniqueNamesArray);
 
     useEffect(() => {
         fetch("http://localhost:3000/allmodals")
@@ -21,7 +34,41 @@ const Modals = () => {
             });
     }, []);
 
+
+
   
+
+function filtering(framework){
+  
+if(framework == "All"){
+
+   uniqueNamesArray = ["All",...uniqueNamesArray];
+        fetch("http://localhost:3000/allmodals")
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                setAi(data);
+                setFilteredAi(data);  
+            });
+   
+}else{
+   uniqueNamesArray = ["All",...uniqueNamesArray];
+      fetch(`http://localhost:3000/find/${framework}`)
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                 setAi(data);
+                setFilteredAi(data);
+               
+            });
+}
+
+   
+
+
+}
+
+
     const handleSearchChange = (e) => {
         const query = e.target.value;
         setSearchQuery(query);
@@ -35,12 +82,42 @@ const Modals = () => {
         }
     };
 
+
+
     return (
         <div className='max-w-[1300px] mx-auto'>
-            <div className='flex justify-center items-center'>
-                <h1 id='headmodal' className='text-4xl font-bold mx-auto text-center my-7 font-serif text-gray-500 bg-gray-600 w-fit px-20 py-7 rounded-2xl'>
-                    All AI Models
-                </h1>
+            <div className='flex justify-between items-center'>
+                 <div className="relative inline-block">
+      {/* Button */}
+      <button
+        onClick={toggleDropdown}
+        className="btn text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg px-6 py-3 transition-transform transform hover:scale-105 shadow-lg"
+      >
+        Button
+      </button>
+
+      {/* Dropdown Menu */}
+      {isOpen && (
+        <ul
+          className="dropdown menu w-52 rounded-xl bg-white shadow-lg mt-2 absolute z-10 transition-all duration-300 transform scale-95 opacity-0 hover:scale-100 hover:opacity-100"
+          style={{ transformOrigin: 'top center', opacity: isOpen ? 1 : 0 }}
+        >
+         {
+          uniqueNamesArray?.map(arr =>( <li className="hover:bg-purple-100"
+          onClick={()=>filtering(arr)}
+          >
+            <a href="#" className="px-4 py-2 text-sm text-gray-800">{arr}</a>
+          </li>))
+         }
+          {/* <li className="hover:bg-purple-100">
+            <a href="#" className="px-4 py-2 text-sm text-gray-800">Item 2</a>
+          </li> */}
+        </ul>
+      )}
+    </div>
+
+
+                {/* search functionality */}
                 <label className="relative w-full max-w-[400px]">
                  
                     <svg

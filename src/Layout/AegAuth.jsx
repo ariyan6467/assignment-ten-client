@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import { AunthContext } from '../Auth/AuthProvider';
+import Swal from 'sweetalert2';
 
 const AegAuth = () => {
     const {handleCreateUser,user,setuser,handleGoogleSignIn,handleupdateData} = useContext(AunthContext);
     console.log(handleCreateUser);
+
+    const location = useLocation();
+    console.log(location);
+    const navigate = useNavigate();
 
     function handleSubmit(e){
         e.preventDefault();
@@ -14,7 +19,11 @@ const AegAuth = () => {
         const img = form.image.value;
         const password = form.password.value;
         console.log(name,email,img,password);
-      
+        
+        const regex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+        
+       if (regex.test(password)) {
         handleCreateUser(email,password)
         .then(res => {
             console.log(res.user);
@@ -29,23 +38,50 @@ const AegAuth = () => {
             handleupdateData(RegisteredUser,profileData)
             .then(() =>{
               setuser({...RegisteredUser,...profileData})
+              Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "Your work has been saved",
+  showConfirmButton: false,
+  timer: 1500
+});
+           navigate("/")
             })
               .catch((error) =>{
-                alert("not update")
+              
               })
         })
         .catch((error) =>{
               console.error(error.message);
-              alert("fuck")
+              Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: `${error.message}`,
+  footer: '<a href="#">Why do I have this issue?</a>'
+});
         })
+    } else {
+      Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "❌ Password must contain at least one uppercase, one lowercase, and be 6+ characters long.!",
+  footer: '<a href="#">Why do I have this issue?</a>'
+});
+    }
+
+
+
+
+
     }
 
     function googleSignIN(){
          handleGoogleSignIn()
          .then(res =>{
             console.log(res.user);
-            alert("success");
+         
             setuser(res.user);
+             navigate("/")
          })
          .catch((error)=>{
             console.error(error.message);
