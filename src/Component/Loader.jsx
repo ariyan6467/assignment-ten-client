@@ -3,8 +3,9 @@ import styled from 'styled-components';
 
 const Loader = () => {
   return (
-    <StyledWrapper>
-      <div className="loader">
+    <StyledOverlay>
+      <StyledWrapper>
+        <div className="loader">
         <div className="truckWrapper">
           <div className="truckBody">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 198 93" className="trucksvg">
@@ -41,9 +42,22 @@ const Loader = () => {
           </svg>
         </div>
       </div>
-    </StyledWrapper>
+      </StyledWrapper>
+    </StyledOverlay>
   );
 };
+
+
+const StyledOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+`;
 
 const StyledWrapper = styled.div`
   .loader {

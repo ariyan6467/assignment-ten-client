@@ -84,16 +84,13 @@
 
 
 
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase/firebase.config';
 
 export const AunthContext = createContext(null);
-const LoadingContext = createContext(); // This context will manage loading state
 
-export const useLoader = () => {
-  return useContext(LoadingContext); // Custom hook to access loading state
-};
+
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -101,11 +98,9 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState(null);
-  const [loader, setLoader] = useState(false); 
+  
 
-  // Functions to manage loading state
-   const startLoading = useCallback(() => setLoader(true), []);
-  const stopLoading = useCallback(() => setLoader(false), []);
+  
 
   function handleCreateUser(email, password) {
     setLoading(true);
@@ -152,16 +147,14 @@ const AuthProvider = ({ children }) => {
     handleUpdateData,
     details,
     setDetails,
-    loader,
-    startLoading,
-    stopLoading, // Expose loading functions to be used in other components
+   
   };
 
   return (
     <AunthContext.Provider value={authInfo}>
-      <LoadingContext.Provider value={{ loader, startLoading, stopLoading }}>
+     
         {children}
-      </LoadingContext.Provider>
+     
     </AunthContext.Provider>
   );
 };

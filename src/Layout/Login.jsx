@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 const Login = () => {
   const {setuser,handleGoogleSignIn,handleSignIn} = useContext(AunthContext);
    const location = useLocation();
-    console.log(location);
+    console.log(location,handleSignIn);
     const navigate = useNavigate();
   function handleSubmit(e){
     e.preventDefault();
