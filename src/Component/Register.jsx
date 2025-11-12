@@ -1,7 +1,8 @@
-import React from "react";
+
 import { motion } from "framer-motion";
 import { Brain, LogIn, UserPlus, Sparkles, ShieldCheck } from "lucide-react";
 import { NavLink } from "react-router";
+
 const fadeUp = {
 initial: { opacity: 0, y: 24 },
 whileInView: { opacity: 1, y: 0 },

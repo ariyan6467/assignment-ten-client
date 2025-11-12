@@ -1,16 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import { AunthContext } from "../Auth/AuthProvider";
+import Loader from "../Component/Loader";
 
 const CreateModal = () => {
   const { user } = useContext(AunthContext); // Get user context
   console.log(user.email); // Log email for debugging
-  
+  const [isloading,setloading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setloading(true)
     const form = e.target;
     const name = form.name.value;
     const createdBy = user.email;  // Directly set createdBy to user.email
@@ -48,7 +50,12 @@ const CreateModal = () => {
           if (result.isConfirmed) {
             Swal.fire("Saved!", "", "success");
             response.json();
-            navigate("/models");
+            setloading(false)
+            if(isloading == false){
+                     navigate("/models");
+                     return <Loader></Loader>
+            }
+           
           } else if (result.isDenied) {
             Swal.fire("Changes are not saved", "", "info");
           }

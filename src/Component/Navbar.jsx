@@ -15,10 +15,11 @@ export default function Navbar() {
   }
 
   const links = [
-    { href: "/add-model", label: "add model" },
-    { href: "/models", label: "view model" },
-    { href: "/purchase", label: "my purchase" },
-    { href: "/mymodals", label: "My Modals" },
+      { href: "/", label: "Home" },
+    { href: "/add-model", label: "Add Model" },
+    { href: "/models", label: "All Model" },
+    { href: "/purchase", label: "My Purchases" },
+    { href: "/mymodals", label: "My Modal" },
   ];
 
   const LinkItems = (
@@ -106,6 +107,9 @@ export default function Navbar() {
                 <li>
                   <NavLink to="/purchase" className="justify-between">
                     Purchase Page<span className="badge chip">Click</span>
+                  </NavLink>
+                   <NavLink to="/models" className="justify-between">
+                    Purchase Page<span className="badge chip">My Models</span>
                   </NavLink>
                 </li>
                 <li>

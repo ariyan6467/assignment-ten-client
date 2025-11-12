@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import { AunthContext } from '../Auth/AuthProvider';
 import Swal from 'sweetalert2';
+import Loader from '../Component/Loader';
 
 const AegAuth = () => {
     const { handleCreateUser, user, setUser, handleGoogleSignIn, handleUpdateData } = useContext(AunthContext);
-
+  const [isloading,setloading] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault();
+        setloading(true);
         const form = e.target;
         const name = form.name.value;
         const email = form.email.value;
@@ -38,8 +40,12 @@ const AegAuth = () => {
                             showConfirmButton: false,
                             timer: 1500
                         })
-                            // Navigate only after the success message is shown
-                            navigate("/");
+                           setloading(false);
+                           if(isloading){
+                                      navigate("/");
+                                      return <Loader></Loader>
+                           }
+                          
                       
                 })
                 .catch((error) => {

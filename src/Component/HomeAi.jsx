@@ -55,8 +55,8 @@ const HomeAi = () => {
       .then((res) => res.json())
       .then((data) => {
      
-        setAi(data); // Set fetched data to state
-        // Stop loading after data is fetched
+        setAi(data); 
+       
         setloading(false);
       })
       .catch((error) => {
@@ -77,7 +77,7 @@ const HomeAi = () => {
        
        {
         isloading? (<Loader></Loader>):(
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
           {/* Render cards only when data is fetched */}
           {aiS.map((ai) => (
             <Cards key={ai.id} ai={ai} />

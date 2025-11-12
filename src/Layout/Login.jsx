@@ -1,15 +1,18 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AunthContext } from '../Auth/AuthProvider';
 import { NavLink, useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
+import Loader from '../Component/Loader';
 
 const Login = () => {
   const {setUser,handleGoogleSignIn,handleSignIn} = useContext(AunthContext);
    const location = useLocation();
     console.log(location,handleSignIn);
     const navigate = useNavigate();
+    const [loading,setloading] = useState(false);
   function handleSubmit(e){
     e.preventDefault();
+    setloading(true);
      const form = e.target;
        const email = form.email.value;
         const password = form.password.value;
@@ -25,8 +28,15 @@ const Login = () => {
   timer: 1500
 });
        setUser(res.user);
+       setloading(false);
           console.log(location.state);
-          navigate(`${location.state}`)
+         if(location.state){
+                  navigate(`${location.state}`)
+                  return <Loader></Loader>
+            }else{
+              navigate("/")
+                return <Loader></Loader>
+            }
          }else{
               Swal.fire({
   icon: "error",
@@ -38,7 +48,12 @@ const Login = () => {
         })
         .catch((error)=>{
           console.error(error.message);
-        
+           Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text:  `${error.message}`,
+  footer: '<a href="#">Why do I have this issue?</a>'
+});
         })
   }
 
@@ -84,7 +99,7 @@ const Login = () => {
       ">
         {/* Heading */}
         <div className="text-center font-black text-3xl text-sky-600">
-          Sign In
+          Login to AI Model Inventory Manager
         </div>
 
         {/* Form */}
