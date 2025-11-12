@@ -84,7 +84,7 @@
 
 
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase/firebase.config';
 
@@ -101,11 +101,11 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState(null);
-  const [loader, setLoader] = useState(false); // Loader state to control spinner
+  const [loader, setLoader] = useState(false); 
 
   // Functions to manage loading state
-  const startLoading = () => setLoader(true);
-  const stopLoading = () => setLoader(false);
+   const startLoading = useCallback(() => setLoader(true), []);
+  const stopLoading = useCallback(() => setLoader(false), []);
 
   function handleCreateUser(email, password) {
     setLoading(true);

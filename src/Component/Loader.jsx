@@ -1,14 +1,9 @@
 import React from "react";
-import { useLoader } from "../Auth/AuthProvider"; // Use the context
-
+import styled from 'styled-components';
 
 const Loader = () => {
-  const { loader } = useLoader(); // Access the loading state
-
-  if (!loader) return null; // If not loading, do not render the spinner
-
   return (
-  <StyledWrapper>
+    <StyledWrapper>
       <div className="loader">
         <div className="truckWrapper">
           <div className="truckBody">
@@ -48,7 +43,7 @@ const Loader = () => {
       </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .loader {
@@ -69,14 +64,12 @@ const StyledWrapper = styled.div`
     justify-content: flex-end;
     overflow-x: hidden;
   }
-  /* truck upper body */
   .truckBody {
     width: 130px;
     height: fit-content;
     margin-bottom: 6px;
     animation: motion 1s linear infinite;
   }
-  /* truck suspension animation*/
   @keyframes motion {
     0% {
       transform: translateY(0px);
@@ -88,7 +81,7 @@ const StyledWrapper = styled.div`
       transform: translateY(0px);
     }
   }
-  /* truck's tires */
+
   .truckTires {
     width: 130px;
     height: fit-content;
@@ -150,6 +143,7 @@ const StyledWrapper = styled.div`
     100% {
       transform: translateX(-350px);
     }
-  }`;
+  }
+`;
 
 export default Loader;
