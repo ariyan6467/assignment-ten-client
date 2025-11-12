@@ -41,22 +41,27 @@
 
 import React, { useEffect, useState } from "react";
 import Cards from "./Cards";
+import Loader from "./Loader";
+
 
 const HomeAi = () => {
   const [aiS, setAi] = useState([""]);  // State to store fetched data
-  
+  const [isloading,setloading] = useState(false);
 
   useEffect(() => {
- 
+   setloading(true);
     fetch("http://localhost:3000/allai")
+
       .then((res) => res.json())
       .then((data) => {
      
         setAi(data); // Set fetched data to state
         // Stop loading after data is fetched
+        setloading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setloading(false);
       
       });
   }, []); // Ensure to call on mount
@@ -70,13 +75,15 @@ const HomeAi = () => {
 
       {/* Check if data is being fetched */}
        
-       
+       {
+        isloading? (<Loader></Loader>):(
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {/* Render cards only when data is fetched */}
           {aiS.map((ai) => (
             <Cards key={ai.id} ai={ai} />
           ))}
-        </div>
+        </div>)
+       }
       
     </div>
   );

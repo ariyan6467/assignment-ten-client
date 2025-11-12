@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AunthContext } from '../Auth/AuthProvider';
 import Cards from '../Component/Cards';
 import { useLocation } from 'react-router';
+import Loader from '../Component/Loader';
 
 const Modals = () => {
     const name = useContext(AunthContext);
@@ -15,6 +16,7 @@ const Modals = () => {
     const [filteredAi, setFilteredAi] = useState([]);  
     const [searchQuery, setSearchQuery] = useState(''); 
       const [isOpen, setIsOpen] = useState(false);
+      const [isloading,setloading] = useState(false);
         const toggleDropdown = () => {
         setIsOpen(!isOpen);
   };
@@ -25,12 +27,14 @@ let uniqueNamesArray = [,...new Set(filteredAi.map(item => item.framework))];
 console.log(uniqueNamesArray);
 
     useEffect(() => {
+        setloading(true);
         fetch("http://localhost:3000/allmodals")
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
                 setAi(data);
                 setFilteredAi(data);  
+                setloading(false);
             });
     }, []);
 
@@ -143,13 +147,15 @@ if(framework == "All"){
                 </label>
             </div>
 
-       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-[1300px] mx-auto">
+      {
+        isloading? (<Loader></Loader>):( <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-[1300px] mx-auto">
                 {filteredAi.length > 0 ? (
                     filteredAi.map((ai) => <Cards key={ai._id} ai={ai} />)
                 ) : (
                     <p className="text-center text-xl text-gray-500 col-span-4">No models found.</p>
                 )}
-            </div>
+            </div>)
+      }
         </div>
     );
 };

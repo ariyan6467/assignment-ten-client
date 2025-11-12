@@ -4,7 +4,7 @@ import { NavLink, useLocation, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 
 const Login = () => {
-  const {setuser,handleGoogleSignIn,handleSignIn} = useContext(AunthContext);
+  const {setUser,handleGoogleSignIn,handleSignIn} = useContext(AunthContext);
    const location = useLocation();
     console.log(location,handleSignIn);
     const navigate = useNavigate();
@@ -16,24 +16,29 @@ const Login = () => {
 
         handleSignIn(email,password)
         .then(res => {
-         Swal.fire({
+         if(res.user){
+          Swal.fire({
   position: "top-end",
   icon: "success",
   title: "Login Successfull",
   showConfirmButton: false,
   timer: 1500
 });
-          setuser(res.user);
+       setUser(res.user);
+          console.log(location.state);
           navigate(`${location.state}`)
-        })
-        .catch((error)=>{
-          console.error(error.message);
-         Swal.fire({
+         }else{
+              Swal.fire({
   icon: "error",
   title: "Oops...",
   text: "Login Fail.Recheck Your Info",
   footer: '<a href="#">Why do I have this issue?</a>'
 });
+         }
+        })
+        .catch((error)=>{
+          console.error(error.message);
+        
         })
   }
 
@@ -48,7 +53,7 @@ const Login = () => {
   showConfirmButton: false,
   timer: 1500
 });
-            setuser(res.user);
+            setUser(res.user);
             if(location.state){
                   navigate(`${location.state}`)
             }else{

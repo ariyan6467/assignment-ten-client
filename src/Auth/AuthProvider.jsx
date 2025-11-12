@@ -144,7 +144,7 @@ const AuthProvider = ({ children }) => {
     handleGoogleSignIn,
     handleSignIn,
     handleSignOut,
-    handleUpdateData,
+   handleUpdateData,
     details,
     setDetails,
    
