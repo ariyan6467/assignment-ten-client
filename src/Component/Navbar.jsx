@@ -2,10 +2,11 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AunthContext } from "../Auth/AuthProvider";
-
+import useTheme from "../hooks/UseTheme"
 export default function Navbar() {
   const { user, handleSignOut } = useContext(AunthContext);
   const [open, setOpen] = React.useState(false);
+   const { theme, toggleTheme, isDarkMode } = useTheme();
  console.log(user);
   function signOut() {
     handleSignOut()
@@ -17,7 +18,7 @@ export default function Navbar() {
     { href: "/add-model", label: "add model" },
     { href: "/models", label: "view model" },
     { href: "/purchase", label: "my purchase" },
-     { href: "/mymodals", label: "My Modals" },
+    { href: "/mymodals", label: "My Modals" },
   ];
 
   const LinkItems = (
@@ -37,7 +38,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50">
-      <div className="h-[2px] w-full bg-gradient-to-r from-[var(--brand-primary)] via-[var(--brand-accent)] to-[var(--brand-secondary)]" />
+      <div className="h-[2px] w-full bg-gradient-to-r from-[var(--brand-primary)] via-sky-400/60 to-[var(--brand-secondary)]" />
       <div className="navbar glass border-b border-[var(--border)]">
         {/* Left: Logo */}
         <div className="navbar-start">
@@ -63,10 +64,30 @@ export default function Navbar() {
         {/* Right */}
         <div className="navbar-end gap-2">
           {/* Soft action */}
-          <button className="btn btn-soft rounded-full" aria-label="Toggle theme">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
-              <path d="M21.64 13a1 1 0 0 0-1.05-.14A8 8 0 0 1 11.1 3.41a1 1 0 0 0-1.25-1.24A10 10 0 1 0 22 14a1 1 0 0 0-.36-1Z"/>
-            </svg>
+           <button
+            id="theme"
+            type="button"
+            className="btn btn-soft rounded-full"
+            aria-label={`Switch to ${isDarkMode ? "light" : "dark"} theme`}
+            aria-pressed={isDarkMode}
+            onClick={toggleTheme}
+            title={`Toggle ${theme} theme`}
+          >
+            {isDarkMode ? (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+                <path
+                  fill="currentColor"
+                  d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12Zm0 2.5a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1A.75.75 0 0 1 12 20.5Zm7.78-1.22a.75.75 0 0 1 1.06 1.06l-.71.7a.75.75 0 0 1-1.06-1.06l.71-.7ZM3.93 4.64A.75.75 0 0 1 5 3.58l.7.71A.75.75 0 0 1 4.64 5.35l-.71-.7Zm14.13.71a.75.75 0 0 1 0-1.06l.71-.71a.75.75 0 0 1 1.06 1.06l-.71.71a.75.75 0 0 1-1.06 0ZM3.5 12a.75.75 0 0 1-.75.75h-1a.75.75 0 0 1 0-1.5h1A.75.75 0 0 1 3.5 12Zm18 0a.75.75 0 0 1 .75-.75h1a.75.75 0 0 1 0 1.5h-1a.75.75 0 0 1-.75-.75ZM4.64 18.65a.75.75 0 0 1 1.06 0l.71.7a.75.75 0 0 1-1.06 1.06l-.71-.7a.75.75 0 0 1 0-1.06Zm3.18-14.91a.75.75 0 0 1-.75-.75v-1a.75.75 0 0 1 1.5 0v1a.75.75 0 0 1-.75.75Zm0 15.72a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1a.75.75 0 0 1 .75-.75Zm12.48-12.47a.75.75 0 0 1 1.06-1.06l.71.71a.75.75 0 0 1-1.06 1.06l-.71-.71Z"
+                />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="h-5 w-5">
+                <path
+                  fill="currentColor"
+                  d="M21.752 15.002a9.718 9.718 0 0 1-4.094 1.876c-5.186 1.21-9.955-3.56-8.744-8.744A9.72 9.72 0 0 1 10.79 4.04a.75.75 0 0 0-.672-1.125A10.998 10.998 0 1 0 22.877 13.88a.75.75 0 0 0-1.125-.672Z"
+                />
+              </svg>
+            )}
           </button>
 
           {/* Auth */}
@@ -74,7 +95,7 @@ export default function Navbar() {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar" aria-label="Open profile menu">
                 <div className="w-10 rounded-full ring ring-[var(--border)]">
-                  <img alt="User avatar" src={user.photoURL}/>
+                  <img alt="User avatar" src={user.photoURL}/>0-?00
                 </div>
               </label>
               <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content glass rounded-box w-64">
