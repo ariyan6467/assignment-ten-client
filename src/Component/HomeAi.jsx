@@ -50,7 +50,7 @@ const HomeAi = () => {
 
   useEffect(() => {
    setloading(true);
-    fetch("http://localhost:3000/allai")
+    fetch("https://ai-inventing-manager-server.vercel.app/allai")
 
       .then((res) => res.json())
       .then((data) => {

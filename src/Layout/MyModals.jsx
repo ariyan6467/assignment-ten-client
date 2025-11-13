@@ -9,7 +9,7 @@ const MyModals = () => {
     console.log(user.email);
      useEffect(()=>{
         setloading(true);
-        fetch(`http://localhost:3000/model/${user.email}`)  
+        fetch(`https://ai-inventing-manager-server.vercel.app/model/${user.email}`)  
   .then(response => response.json()) 
   .then(data => {
     console.log(data)

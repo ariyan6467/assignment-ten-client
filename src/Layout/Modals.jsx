@@ -28,7 +28,7 @@ console.log(uniqueNamesArray);
 
     useEffect(() => {
         setloading(true);
-        fetch("http://localhost:3000/allmodals")
+        fetch("https://ai-inventing-manager-server.vercel.app/allmodals")
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
@@ -47,7 +47,7 @@ function filtering(framework){
 if(framework == "All"){
 
    uniqueNamesArray = ["All",...uniqueNamesArray];
-        fetch("http://localhost:3000/allmodals")
+        fetch("https://ai-inventing-manager-server.vercel.app/allmodals")
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
@@ -57,7 +57,7 @@ if(framework == "All"){
    
 }else{
    uniqueNamesArray = ["All",...uniqueNamesArray];
-      fetch(`http://localhost:3000/find/${framework}`)
+      fetch(`https://ai-inventing-manager-server.vercel.app/find/${framework}`)
             .then((res) => res.json())
             .then((data) => {
                 console.log(data);
