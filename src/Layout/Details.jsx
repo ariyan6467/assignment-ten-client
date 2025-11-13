@@ -40,7 +40,7 @@ const Details = () => {
             denyButtonText: `Don't delete`,
         }).then(result => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:3000/models/${id}`, {
+                fetch(`https://ai-inventing-manager-server.vercel.app/models/${id}`, {
                     method: 'DELETE',
                 })
                     .then(response => response.json())
@@ -64,7 +64,7 @@ const Details = () => {
     const handlePurchase = async (id) => {
         // ... (existing handlePurchase logic)
         try {
-            const response = await fetch(`http://localhost:3000/purchase?id=${id}&&email=${user?.email}`, {
+            const response = await fetch(`https://ai-inventing-manager-server.vercel.app/purchase?id=${id}&&email=${user?.email}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
             });
@@ -200,7 +200,7 @@ const UpdateModal = ({ details, isOpen, onClose }) => {
       const  updatedData={name,framework,useCase,dataset,image,description};
    
         
-  const response = await fetch(`http://localhost:3000/update/${details._id}`, {
+  const response = await fetch(`https://ai-inventing-manager-server.vercel.app/update/${details._id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedData),

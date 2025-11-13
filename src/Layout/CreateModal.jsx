@@ -32,7 +32,7 @@ const CreateModal = () => {
       image,
     };
 
-    fetch("http://localhost:3000/mymodal", {
+    fetch("https://ai-inventing-manager-server.vercel.app/mymodal", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

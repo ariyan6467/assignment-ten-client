@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router';
+import { NavLink,  useNavigate } from 'react-router';
 import { AunthContext } from '../Auth/AuthProvider';
 import Swal from 'sweetalert2';
 import Loader from '../Component/Loader';
 
 const AegAuth = () => {
-    const { handleCreateUser, user, setUser, handleGoogleSignIn, handleUpdateData } = useContext(AunthContext);
+    const { handleCreateUser, setUser, handleGoogleSignIn, handleUpdateData } = useContext(AunthContext);
   const [isloading,setloading] = useState(false);
-    const location = useLocation();
+   
     const navigate = useNavigate();
 
     function handleSubmit(e) {
@@ -41,7 +41,7 @@ const AegAuth = () => {
                             timer: 1500
                         })
                            setloading(false);
-                           if(isloading){
+                           if(!isloading){
                                       navigate("/");
                                       return <Loader></Loader>
                            }
@@ -113,7 +113,7 @@ const AegAuth = () => {
 
                     {/* Password */}
                     <input
-                        required
+                        requiredF
                         type="password"
                         name="password"
                         id="password"

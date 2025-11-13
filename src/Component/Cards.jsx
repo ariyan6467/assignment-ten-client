@@ -9,7 +9,7 @@ const Cards = ({ ai }) => {
  
     async function getModelById(id) {
         try {
-            const res = await fetch(`http://localhost:3000/models/${id}`);
+            const res = await fetch(`https://ai-inventing-manager-server.vercel.app/models/${id}`);
             if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
             const data = await res.json();
             setDetails(data);

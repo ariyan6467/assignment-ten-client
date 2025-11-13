@@ -85,7 +85,7 @@ const router = createBrowserRouter([
       {
         path:"/details/:id",
         loader: async ({ params }) => {
-    const response = await fetch(`http://localhost:3000/models/${params.id}`);
+    const response = await fetch(`https://ai-inventing-manager-server.vercel.app/models/${params.id}`);
     if (!response.ok) throw new Error('Error fetching data');
     return response.json();
   },

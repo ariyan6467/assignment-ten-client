@@ -22,10 +22,7 @@ If you are developing a production application, we recommend using TypeScript wi
 //Readme Code OverView
 => This is my Project  "AI-manage-Inventory".This service exposes a REST API for managing AI models, tracking purchases, and surfacing curated content to the client-side application.I have used severa technology (eg:javascript,react-router,firebase,mongodb backed management);
 
-=>live site:
-
-
-
+=>live site:https://friendly-manatee-1cb052.netlify.app/
 
 
 

@@ -64,7 +64,7 @@ const HomeAi = () => {
         setloading(false);
       
       });
-  }, []); // Ensure to call on mount
+  }, []); 
 
   return (
     <div>
