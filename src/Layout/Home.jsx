@@ -22,7 +22,7 @@ const Home = () => {
         <section className="my-14">
           <Register />
         </section>
-       <section className="my-34 bg-blur py-36 px-17 rounded-2xl">
+       <section className="my-34 bg-blur py-36 px-17 rounded-2xl ">
   <div className="flex flex-wrap justify-between gap-8 ">
     <CardOne />
     <CardTwo />
