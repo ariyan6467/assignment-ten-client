@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PurchaseCard from '../Component/PurchaseCard';
 import { AunthContext } from '../Auth/AuthProvider';
 import Loader from "../Component/Loader"
+import Card from '../Component/PurchaseCard';
 const MyPurchase = () => {
   const {user} = useContext(AunthContext);
   console.log(user.email);
@@ -26,12 +27,11 @@ const MyPurchase = () => {
      {
        isloading? (<Loader></Loader>):(  <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 max-w-[1200px] mx-auto my-20'>
       {purchases.map((purchase) => (
-        <PurchaseCard key={purchase.id} purchase={purchase} />
+       <Card key={purchase.id} purchase={purchase}></Card>
       ))}
     </div>)
         }
     </>
-  );
-};
+  );};
 
 export default MyPurchase;

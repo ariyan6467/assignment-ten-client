@@ -7,6 +7,7 @@ import Loader from "../Component/Loader";
 import CardOne from "../Component/SuccessCards.jsx/CardOne";
 import CardTwo from "../Component/SuccessCards.jsx/CardTwo";
 import CardThree from "../Component/SuccessCards.jsx/CardThree";
+import LandingSections from "../Component/LandingSection";
 
 const Home = () => {
   return (
@@ -29,6 +30,9 @@ const Home = () => {
     <CardThree />
   </div>
 </section>
+ <section className="my-16">
+          <LandingSections />
+        </section>
       </div>
     </div>
   );

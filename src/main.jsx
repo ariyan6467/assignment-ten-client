@@ -23,6 +23,11 @@ import Details from "./Layout/Details.jsx";
 import MyModals from "./Layout/MyModals.jsx";
 import UpdateModel from "./Component/UpdateModel.jsx";
 import Error from "./Layout/Error.jsx";
+import Dashboard from "./Layout/DashboardLayout/Dashboard.jsx";
+import PurchaseAssets from "./Layout/DashboardLayout/PurchaseAssets.jsx";
+import MyPurchases from "./Layout/DashboardLayout/MyPurchase.jsx";
+import Profile from "./Layout/DashboardLayout/Profile.jsx";
+import MainDashboard from "./Layout/DashboardLayout/MainDashboard.jsx";
 
 
 
@@ -114,6 +119,30 @@ const router = createBrowserRouter([
   {
     path:"/register",
     Component:AegAuth
+  },
+  {
+    path:"/dashboard",
+    element:<PrivateRoutes>
+      <Dashboard></Dashboard>
+    </PrivateRoutes>,
+    children:[
+      {
+          index:true,
+          element:<MainDashboard></MainDashboard>
+      },
+      {
+        path:"/dashboard/purchase-assets",
+        element:<PurchaseAssets></PurchaseAssets>
+      },
+      {
+        path:"/dashboard/my-purchase",
+        element:<MyPurchases></MyPurchases>
+      },
+      {
+        path:"/dashboard/profile",
+        element:<Profile></Profile>
+      }
+    ]
   }
 ]);
 createRoot(document.getElementById("root")).render(

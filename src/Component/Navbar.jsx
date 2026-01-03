@@ -23,8 +23,9 @@ export default function Navbar() {
   if (user?.email) {
     links.push(
       { href: "/add-model", label: "Add Model" },
-      { href: "/purchase", label: "My Purchases" },
-      { href: "/mymodals", label: "My Modal" }
+    
+      { href: "/mymodals", label: "My Modal" },
+      { href: "/dashboard", label: "Dashboard" },
     );
   }
 
