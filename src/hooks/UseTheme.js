@@ -49,6 +49,8 @@ export default function useTheme() {
   useEffect(() => {
     if (typeof document !== "undefined") {
       document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.classList.toggle("dark", theme === THEMES.DARK);
+      document.documentElement.classList.toggle("light", theme === THEMES.LIGHT);
     }
   }, [theme]);
 

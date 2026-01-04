@@ -5,107 +5,152 @@ import Swal from 'sweetalert2';
 import Loader from '../Component/Loader';
 
 const Login = () => {
-  const {setUser,handleGoogleSignIn,handleSignIn} = useContext(AunthContext);
-   const location = useLocation();
-    console.log(location,handleSignIn);
-    const navigate = useNavigate();
-    const [loading,setloading] = useState(false);
-  function handleSubmit(e){
-    e.preventDefault();
-    setloading(true);
-     const form = e.target;
-       const email = form.email.value;
-        const password = form.password.value;
+  const { setUser, handleGoogleSignIn, handleSignIn } = useContext(AunthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("");
 
-        handleSignIn(email,password)
-        .then(res => {
-         if(res.user){
+  const validate = (email, password) => {
+    const nextErrors = {};
+    if (!email) nextErrors.email = "Email is required.";
+    if (!password) nextErrors.password = "Password is required.";
+    if (password && password.length < 6) nextErrors.password = "Password must be at least 6 characters.";
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    if (!validate(email, password)) {
+      setLoading(false);
+      return;
+    }
+
+          handleSignIn(email, password)
+      .then((res) => {
+        if (res.user) {
           Swal.fire({
-  position: "top-end",
-  icon: "success",
-  title: "Login Successfull",
-  showConfirmButton: false,
-  timer: 1500
-});
-       setUser(res.user);
-       setloading(false);
-          console.log(location.state);
-         if(location.state){
-                  navigate(`${location.state}`)
-                  return <Loader></Loader>
-            }else{
-              navigate("/")
-                return <Loader></Loader>
-            }
-         }else{
-              Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: "Login Fail.Recheck Your Info",
-  footer: '<a href="#">Why do I have this issue?</a>'
-});
-         }
-        })
-        .catch((error)=>{
-          console.error(error.message);
-           Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text:  `${error.message}`,
-  footer: '<a href="#">Why do I have this issue?</a>'
-});
-        })
+      position: "top-end",
+            icon: "success",
+            title: "Login Successfull",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          setUser(res.user);
+          setStatus("Signed in successfully.");
+          setErrors({});
+          if (location.state) {
+            navigate(`${location.state}`);
+            return <Loader />;
+          } else {
+            navigate("/");
+            return <Loader />;
+          }
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Login Fail.Recheck Your Info",
+            footer: '<a href="#">Why do I have this issue?</a>',
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: `${error.message}`,
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+        setErrors({ general: error.message });
+      })
+      .finally(() => setLoading(false));
   }
 
-   function googleSignIN(){
-         handleGoogleSignIn()
-         .then(res =>{
-            console.log(res.user);
-           Swal.fire({
-  position: "top-end",
-  icon: "success",
-  title: "Login Successfull",
-  showConfirmButton: false,
-  timer: 1500
-});
-            setUser(res.user);
-            if(location.state){
-                  navigate(`${location.state}`)
-            }else{
-              navigate("/")
-            }
-             
-         })
-         .catch((error)=>{
-            console.error(error.message);
-           Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: "Login Fail.Recheck Your Info",
-  footer: '<a href="#">Why do I have this issue?</a>'
-});
-         })
-    }
-    return (
-         <div className="min-h-screen bg-base-200 flex items-center justify-center p-6">
+     function googleSignIN() {
+    setLoading(true);
+    handleGoogleSignIn()
+      .then((res) => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Login Successfull",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setUser(res.user);
+        setStatus("Signed in successfully via Google.");
+        setErrors({});
+        if (location.state) {
+          navigate(`${location.state}`);
+        } else {
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error(error.message);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Login Fail.Recheck Your Info",
+          footer: '<a href="#">Why do I have this issue?</a>',
+        });
+        setErrors({ general: error.message });
+      })
+      .finally(() => setLoading(false));
+  }
+  return (
+    <div className="min-h-screen flex items-center justify-center p-6 app-shell">
       {/* Card container (replicates gradient, radius, border, shadow) */}
-      <div className="
+        <div
+        className="
         max-w-sm w-full
-        rounded-[40px] p-6
-        border-[5px] border-white
+        rounded-[32px] p-6
+        border border-[var(--card-border)]
         shadow-[0_30px_30px_-20px_rgba(133,189,215,0.88)]
-        bg-white
-        bg-gradient-to-b from-white to-[#F4F7FB]
-      ">
+        bg-[var(--card-bg)]
+      "
+      >
         {/* Heading */}
-        <div className="text-center font-black text-3xl text-sky-600">
+        <div className="text-center font-black text-3xl text-[var(--text-strong)]">
           Login to AI Model Inventory Manager
         </div>
 
+
+  {status && (
+          <div
+            className="mt-4 p-3 rounded-xl border border-emerald-400/40 bg-emerald-500/10 text-emerald-400 text-sm"
+            aria-live="polite"
+          >
+            {status}
+          </div>
+        )}
+        {Object.values(errors).length > 0 && (
+          <div
+            className="mt-4 p-3 rounded-xl border border-red-400/40 bg-red-500/10 text-red-200 text-sm"
+            aria-live="assertive"
+          >
+            {Object.values(errors)[0]}
+          </div>
+        )}
+        {loading && (
+          <div className="mt-4 space-y-2" aria-hidden="true">
+            <div className="h-3 rounded-full skeleton"></div>
+            <div className="h-3 rounded-full skeleton w-2/3"></div>
+          </div>
+        )}
+
+
         {/* Form */}
-        <form 
-        onSubmit={handleSubmit}
-        className="mt-5">
+        <form onSubmit={handleSubmit} className="mt-5">
           {/* Email */}
           <input
             required
@@ -115,12 +160,13 @@ const Login = () => {
             placeholder="E-mail"
             className="
               input input-bordered w-full
-              bg-white
+                  bg-[color-mix(in_srgb,var(--card-bg)_90%,transparent)]
               rounded-2xl
               mt-4
               shadow-[0_10px_10px_-5px_#cff0ff]
-              focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-500
+              focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-500 text-[var(--text-strong)]
             "
+               aria-invalid={Boolean(errors.email)}
           />
 
           {/* Password */}
@@ -132,12 +178,13 @@ const Login = () => {
             placeholder="Password"
             className="
               input input-bordered w-full
-              bg-white
+               bg-[color-mix(in_srgb,var(--card-bg)_90%,transparent)]
               rounded-2xl
               mt-4
               shadow-[0_10px_10px_-5px_#cff0ff]
-              focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-500
+              focus:outline-none focus:ring-2 focus:ring-cyan-500/70 focus:border-cyan-500 text-[var(--text-strong)]
             "
+              aria-invalid={Boolean(errors.password)}
           />
 
           {/* Forgot password */}
@@ -160,14 +207,15 @@ const Login = () => {
               hover:scale-[1.03] hover:shadow-[0_23px_10px_-20px_rgba(133,189,215,0.88)]
               active:scale-95 active:shadow-[0_15px_10px_-10px_rgba(133,189,215,0.88)]
             "
+               disabled={loading}
           >
-            Sign In
+              {loading ? "Signing In..." : "Sign In"}
           </button>
         </form>
 
         {/* Social sign-in */}
         <div className="mt-6">
-          <span className="block text-center text-[10px] text-neutral-400">
+          <span className="block text-center text-[10px] text-soft">
             Or Sign in with
           </span>
 
@@ -180,7 +228,7 @@ const Login = () => {
               className="
                 grid place-content-center
                 w-10 aspect-square rounded-full
-                border-[5px] border-white
+                     border-[5px] border-[var(--card-border)]
                 shadow-[0_12px_10px_-8px_rgba(133,189,215,0.88)]
                 transition-transform duration-200 ease-in-out
                 hover:scale-110 active:scale-90
@@ -204,9 +252,7 @@ const Login = () => {
 
         {/* Agreement link */}
         <span className="block text-center mt-4">
-         <NavLink 
-         to="/register"
-         className="text-sky-500 text-[9px] hover:underline">
+         <NavLink to="/register" className="text-sky-500 text-[11px] hover:underline">
             New?Sign up
          </NavLink>
         </span>

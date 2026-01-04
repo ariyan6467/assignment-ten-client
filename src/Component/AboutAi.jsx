@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const AboutAi = () => {
   return (
-    <div className="hero bg-gradient-to-br from-slate-900 via-indigo-900 to-purple-800 text-white min-h-screen">
+      <div className="theme-section min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse gap-10">
         {/* Animated Image */}
         <motion.img
@@ -21,18 +21,18 @@ const AboutAi = () => {
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
-          <h1 className="text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-cyan-400 to-purple-400 text-transparent bg-clip-text mb-4">
+         <h1 className="text-5xl lg:text-6xl font-extrabold bg-gradient-to-r from-cyan-500 to-purple-500 text-transparent bg-clip-text mb-4">
             About AI Models!
           </h1>
 
-          <p className="py-6 text-lg leading-relaxed text-gray-200">
-            An <span className="font-semibold text-cyan-300">AI model</span> is a program or mathematical structure trained 
+          <p className="py-6 text-lg leading-relaxed text-[var(--text-strong)]">
+            An <span className="font-semibold text-cyan-500">AI model</span> is a program or mathematical structure trained 
             to recognize patterns, make decisions, or generate outputs based on data. 
             It’s essentially the “brain” behind artificial intelligence systems.
           </p>
 
-          <p className="text-lg leading-relaxed text-gray-200">
-            AI models are built through a process called <span className="font-semibold text-purple-300">training</span>, 
+        <p className="text-lg leading-relaxed text-soft">
+            AI models are built through a process called <span className="font-semibold text-purple-500">training</span>, 
             where they learn from large datasets — such as images, text, or numerical data — 
             to identify relationships and patterns. Once trained, they can apply this knowledge 
             to new, unseen data.

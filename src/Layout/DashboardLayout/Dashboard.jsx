@@ -38,7 +38,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-[#05070a] text-gray-300 overflow-x-hidden">
+   <div className="flex min-h-screen dashboard-shell overflow-x-hidden">
       
       {/* --- Mobile Sidebar Overlay --- */}
       {isSidebarOpen && (
@@ -50,7 +50,7 @@ const Dashboard = () => {
 
       {/* --- Sidebar (Responsive) --- */}
       <aside className={`
-        fixed lg:static inset-y-0 left-0 z-[70] w-64 bg-[#05070a] border-r border-white/5 p-6 flex flex-col gap-8 transform transition-transform duration-300
+        fixed lg:static inset-y-0 left-0 z-[70] w-64 surface-panel p-6 flex flex-col gap-8 transform transition-transform duration-300
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
       `}>
         <div className="flex items-center justify-between lg:justify-start gap-2 px-2">
@@ -70,7 +70,7 @@ const Dashboard = () => {
           </button>
         </div>
 
-        <nav className="space-y-2 flex-grow">
+         <nav className="space-y-2 flex-grow text-soft">
           <NavLink to="/dashboard" end>
             {({ isActive }) => <SidebarItem icon={LayoutDashboard} label="Dashboard" active={isActive} onClick={() => setIsSidebarOpen(false)} />}
           </NavLink>
@@ -85,27 +85,27 @@ const Dashboard = () => {
       </aside>
 
       {/* --- Main Content Area --- */}
-      <main className="flex-grow flex flex-col min-w-0">
+     <main className="flex-grow flex flex-col min-w-0 surface-panel m-2 lg:m-4 rounded-3xl border border-[var(--card-border)] shadow-xl">
         
         {/* Navbar */}
-        <header className="sticky top-0 z-50 bg-[#05070a]/80 backdrop-blur-md border-b border-white/5 p-4 lg:px-8 lg:py-4 flex items-center justify-between">
+        <header className="sticky top-0 z-50 bg-[color-mix(in_srgb,var(--card-bg)_95%,transparent)] backdrop-blur-md border-b border-[var(--card-border)] p-4 lg:px-8 lg:py-4 flex items-center justify-between rounded-3xl">
           <div className="flex items-center gap-4">
             <button className="lg:hidden text-gray-400" onClick={() => setIsSidebarOpen(true)}>
               <Menu size={24} />
             </button>
-            <div className="hidden md:flex gap-6 items-center text-sm font-medium">
-              <span className="text-white border-b-2 border-blue-500 pb-1 cursor-pointer">Overview</span>
-              <span className="hover:text-white cursor-pointer transition-colors">Analytics</span>
+            <div className="hidden md:flex gap-6 items-center text-sm font-medium text-soft">
+              <span className="text-[var(--text-strong)] border-b-2 border-blue-500 pb-1 cursor-pointer">Overview</span>
+              <span className="hover:text-[var(--text-strong)] cursor-pointer transition-colors">Analytics</span>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="relative hidden sm:block">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={14} />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-soft" size={14} />
               <input 
                 type="text" 
                 placeholder="Search assets..." 
-                className="bg-white/5 border border-white/10 rounded-full py-2 pl-9 pr-4 text-xs focus:outline-none focus:border-blue-500/50 w-40 lg:w-60"
+                className="bg-[color-mix(in_srgb,var(--card-bg)_90%,transparent)] border border-[var(--card-border)] rounded-full py-2 pl-9 pr-4 text-xs focus:outline-none focus:border-blue-500/50 w-40 lg:w-60 text-[var(--text-strong)]"
               />
             </div>
 
@@ -113,18 +113,18 @@ const Dashboard = () => {
             <div className="relative">
               <button 
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center gap-2 p-1 pr-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all active:scale-95"
+                 className="flex items-center gap-2 p-1 pr-3 rounded-full bg-[color-mix(in_srgb,var(--card-bg)_90%,transparent)] border border-[var(--card-border)] hover:bg-[color-mix(in_srgb,var(--card-bg)_96%,transparent)] transition-all active:scale-95"
               >
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-blue-500/50 shadow-lg shadow-blue-500/10">
                   {user?.photoURL ? (
                     <img src={user.photoURL} alt="User" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                      <UserIcon size={16} className="text-gray-400" />
+                     <UserIcon size={16} className="text-soft" />
                     </div>
                   )}
                 </div>
-                <span className="hidden sm:block text-xs font-bold text-white max-w-[80px] truncate">
+              <span className="hidden sm:block text-xs font-bold text-[var(--text-strong)] max-w-[80px] truncate">
                   {user?.displayName || "Member"}
                 </span>
               </button>
@@ -135,11 +135,11 @@ const Dashboard = () => {
     {/* Click-away overlay */}
     <div className="fixed inset-0 z-10" onClick={() => setIsProfileOpen(false)}></div>
     
-    <div className="absolute right-0 mt-3 w-48 bg-[#0d1117] border border-white/10 rounded-2xl shadow-2xl z-20 py-2 overflow-hidden animate-in fade-in zoom-in duration-200">
+ <div className="absolute right-0 mt-3 w-48 surface-panel border rounded-2xl shadow-2xl z-20 py-2 overflow-hidden animate-in fade-in zoom-in duration-200">
       {/* User Info Header */}
       <div className="px-4 py-3 border-b border-white/5 mb-2">
-          <p className="text-xs text-gray-500">Signed in as</p>
-          <p className="text-sm font-bold text-white truncate">{user?.email}</p>
+        <p className="text-xs text-soft">Signed in as</p>
+          <p className="text-sm font-bold text-[var(--text-strong)] truncate">{user?.email}</p>
       </div>
 
       {/* NEW: Navigate to Dashboard Row */}
@@ -148,14 +148,14 @@ const Dashboard = () => {
           navigate("/dashboard");
           setIsProfileOpen(false);
         }}
-        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-400 hover:bg-white/5 hover:text-white transition-colors"
+         className="w-full flex items-center gap-3 px-4 py-2 text-sm text-soft hover:bg-[color-mix(in_srgb,var(--card-bg)_96%,transparent)] hover:text-[var(--text-strong)] transition-colors"
       >
           <LayoutDashboard size={16} className="text-blue-500" /> Dashboard Home
       </button>
 
       {/* Profile Settings Row */}
      <NavLink to="/dashboard/profile">
-         <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-400 hover:bg-white/5 hover:text-white transition-colors">
+          <button className="w-full flex items-center gap-3 px-4 py-2 text-sm text-soft hover:bg-[color-mix(in_srgb,var(--card-bg)_96%,transparent)] hover:text-[var(--text-strong)] transition-colors">
           <UserIcon size={16} /> Profile Settings
       </button>
      </NavLink>
@@ -166,7 +166,7 @@ const Dashboard = () => {
           handleSignOut();
           setIsProfileOpen(false);
         }}
-        className="w-full flex items-center gap-3 px-4 py-2 mt-1 text-sm text-red-400 hover:bg-red-500/10 transition-colors border-t border-white/5"
+        className="w-full flex items-center gap-3 px-4 py-2 mt-1 text-sm text-red-400 hover:bg-red-500/10 transition-colors border-t border-[var(--card-border)]"
       >
           <LogOut size={16} /> Sign Out
       </button>

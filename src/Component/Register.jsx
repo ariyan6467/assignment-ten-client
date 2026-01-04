@@ -11,18 +11,18 @@ transition: { duration: 0.6, ease: "easeOut" }
 };
 const Register = () => {
     return (
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden theme-section">
 
-<div className="absolute inset-0 -z-10 bg-slate-950" />
-<div className="absolute -top-32 left-1/2 -translate-x-1/2 -z-10 h-96 w-[80rem] rounded-full bg-gradient-to-r from-indigo-600/30 via-fuchsia-500/20 to-cyan-500/20 blur-3xl" />
-
+<div className="absolute -top-32 left-1/2 -translate-x-1/2 -z-10 h-96 w-[80rem] rounded-full bg-gradient-to-r from-indigo-600/40 via-fuchsia-500/25 to-cyan-500/20 blur-3xl" />
 
 
-<section className="mx-auto max-w-6xl px-6 py-20 text-white">
+
+
+<section className="mx-auto max-w-6xl px-6 py-20">
 
 <motion.div
 {...fadeUp}
-className="mx-auto mb-6 w-fit rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-white/90 shadow-sm backdrop-blur"
+className="mx-auto mb-6 w-fit rounded-full border border-[var(--card-border)] bg-[color-mix(in_srgb,var(--card-bg)_90%,transparent)] px-4 py-1.5 text-sm text-[var(--text-strong)] shadow-sm backdrop-blur"
 >
 <div className="flex items-center gap-2">
 <Sparkles className="h-4 w-4" />
@@ -34,7 +34,7 @@ className="mx-auto mb-6 w-fit rounded-full border border-white/10 bg-white/5 px-
 
 <motion.h1
 {...fadeUp}
-className="mx-auto max-w-3xl text-center text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl"
+className="mx-auto max-w-3xl text-center text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl text-[var(--text-strong)]"
 >
 Get Started with <span className="bg-gradient-to-r from-cyan-300 via-sky-300 to-indigo-300 bg-clip-text text-transparent">AI Model Management</span>
 </motion.h1>
@@ -44,7 +44,7 @@ Get Started with <span className="bg-gradient-to-r from-cyan-300 via-sky-300 to-
 <motion.p
 {...fadeUp}
 transition={{ ...fadeUp.transition, delay: 0.05 }}
-className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-white/80"
+className="mx-auto mt-4 max-w-2xl text-center text-base leading-relaxed text-soft"
 >
 Centralize, version, and monitor your AI models with a clean, intuitive dashboard. Register or log in to begin tracking performance, deployments, and updates.
 </motion.p>
@@ -71,7 +71,7 @@ Create an account
 <NavLink to="/login">
     <button
 type="button"
-className="inline-flex items-center gap-2 rounded-2xl bg-white/10 px-5 py-3 text-base font-semibold text-white backdrop-blur ring-1 ring-white/20 transition-transform hover:scale-[1.02] hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
+className="inline-flex items-center gap-2 rounded-2xl bg-[color-mix(in_srgb,var(--card-bg)_90%,transparent)] px-5 py-3 text-base font-semibold text-[var(--text-strong)] backdrop-blur ring-1 ring-[var(--card-border)] transition-transform hover:scale-[1.02] hover:bg-[color-mix(in_srgb,var(--card-bg)_96%,transparent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300"
 aria-label="Log in"
 >
 <LogIn className="h-5 w-5" />

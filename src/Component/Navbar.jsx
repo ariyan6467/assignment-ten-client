@@ -30,11 +30,11 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-[100] w-full transition-all duration-300">
+     <header className="sticky top-0 z-[100] w-full transition-all duration-300 bg-[color-mix(in_srgb,var(--card-bg)_90%,transparent)] backdrop-blur-lg border-b border-[var(--card-border)]">
       {/* Subtle top border line */}
       <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-30" />
       
-      <div className="navbar glass backdrop-blur-md border-b border-white/10 px-4 md:px-12 py-3">
+      <div className="navbar px-4 md:px-12 py-3 flex items-center justify-between">
         <div className="navbar-start">
           <NavLink to="/" className="flex items-center gap-3 group">
             <img 
@@ -56,8 +56,10 @@ export default function Navbar() {
                 <NavLink
                   to={l.href}
                   className={({ isActive }) =>
-                    `px-4 py-2 text-sm font-semibold rounded-full transition-all ${
-                      isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-blue-50 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
+                     `px-4 py-2 text-sm font-semibold rounded-full transition-all border border-transparent ${
+                      isActive
+                        ? "bg-blue-600 text-white shadow-md"
+                        : "hover:bg-[var(--button-bg)] text-[var(--text-strong)] border-[var(--button-border)]"
                     }`
                   }
                 >
@@ -96,10 +98,17 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div className={`lg:hidden absolute w-full transition-all duration-300 ${open ? "top-full opacity-100" : "-top-[400px] opacity-0"}`}>
-         <div className="bg-white dark:bg-gray-900 p-6 shadow-2xl border-b border-blue-500/20">
+         <div className="p-6 shadow-2xl border-b border-[var(--card-border)] surface-panel">
             <ul className="flex flex-col gap-4">
               {links.map(l => (
-                <NavLink key={l.href} to={l.href} onClick={() => setOpen(false)} className="text-lg font-medium border-b border-gray-100 dark:border-gray-800 pb-2">{l.label}</NavLink>
+                 <NavLink
+                  key={l.href}
+                  to={l.href}
+                  onClick={() => setOpen(false)}
+                  className="text-lg font-medium border-b border-[var(--card-border)] pb-2 text-[var(--text-strong)]"
+                >
+                  {l.label}
+                </NavLink>
               ))}
             </ul>
          </div>

@@ -5,15 +5,13 @@ import Footer from './Footer';
 import Loader from './Loader';
 
 const Roots = () => {
-    return (
-        <div>
-           
-            <Navbar></Navbar>
-           
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </div>
-    );
+     return (
+    <div className="app-shell">
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 };
 
 export default Roots;
